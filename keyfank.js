@@ -1,5 +1,5 @@
 /* ============================================================
-   KEYFANK — app.js
+   KEYFANK — keyfank.js
    Systems:
      1. Product data (sample catalog, easy to extend)
      2. Collection / product-detail rendering
@@ -285,7 +285,7 @@ overlay.addEventListener('click', closeDrawer);
 /* ============================================================
    4. CHECKOUT — front-end architecture
    PAYMENT_INTEGRATION_POINT: mount Stripe Elements / PayPal SDK
-   at the marked block in keyfank.html and confirm server-side.
+   at the marked block in index.html and confirm server-side.
    This demo stops before any real payment.
    ============================================================ */
 const checkoutModal = $('#checkoutModal');
