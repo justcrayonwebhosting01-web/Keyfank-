@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KEYFANK — Turn Every Key Into Your Style</title>
+<meta name="description" content="Premium decorative keyboard sticker sets. Scroll, customize, transform." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="keyfank.css" />
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<base target="_blank">
+</head>
+<body>
+
+<!-- ===================== LOADER ===================== -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <span class="loader-logo">KEYFANK</span>
+    <span class="loader-bar"><i></i></span>
+  </div>
+</div>
+
+<!-- ===================== 3D CANVAS (fixed background layer) ===================== -->
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- ===================== NAVIGATION ===================== -->
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#hero" aria-label="Keyfank home">KEYFANK<span class="logo-dot">.</span></a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#hero">Home</a>
+    <a href="#collection">Collection</a>
+    <a href="#how">How It Works</a>
+    <a href="#idea">About</a>
+  </nav>
+  <div class="nav-right">
+    <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1.4"/><circle cx="19" cy="21" r="1.4"/><path d="M2.5 3h2l2.6 12.5a2 2 0 0 0 2 1.5h8.7a2 2 0 0 0 2-1.6L21.5 7H6"/></svg>
+      <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+    </button>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+<main id="main">
+
+  <!-- ===================== 1. HERO ===================== -->
+  <section class="hero" id="hero" aria-label="Keyfank hero">
+    <div class="hero-content reveal">
+      <p class="eyebrow">Premium Keyboard Sticker Sets</p>
+      <h1 class="hero-title">KEYFANK</h1>
+      <p class="hero-tag">Turn Every Key Into Your Style.</p>
+      <p class="hero-sub">Decorative sticker templates, precision-cut for your keyboard.
+        Watch a blank board transform as you scroll.</p>
+      <div class="hero-ctas">
+        <a class="btn primary" href="#collection">Explore Collection</a>
+        <a class="btn ghost" href="#how">How It Works</a>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span>scroll to transform</div>
+  </section>
+
+  <!-- ===================== 2. THE IDEA ===================== -->
+  <section class="split" id="idea" aria-label="The Keyfank idea">
+    <div class="glass-panel reveal">
+      <p class="eyebrow">The Idea</p>
+      <h2>Your keyboard, <em>re-imagined</em>.</h2>
+      <p>Keyfank turns the most-used object on your desk into a canvas. Our sticker sets are
+        engineered to fit standard key layouts — each key gets its own perfectly aligned,
+         premium-finish decal.</p>
+      <p class="muted">Keep scrolling — the keyboard is already starting to change.</p>
+      <ul class="tick-list">
+        <li>Precision-cut per key</li>
+        <li>Bubble-free application</li>
+        <li>Residue-free removal</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 3. TRANSFORMATION (scroll-driven, canvas behind) ===================== -->
+  <section class="journey" id="journey" aria-label="Keyboard transformation">
+    <div class="journey-panel right reveal" data-phase="1">
+      <div class="glass-panel">
+        <p class="eyebrow">Layer 01 — The Base</p>
+        <h3>It starts blank.</h3>
+        <p>Every Keyfank set begins on a clean, standard-layout keyboard. The first stickers
+          land on the number and top letter rows.</p>
+      </div>
+    </div>
+    <div class="journey-panel left reveal" data-phase="2">
+      <div class="glass-panel">
+        <p class="eyebrow">Layer 02 — The Build</p>
+        <h3>Row by row, it becomes yours.</h3>
+        <p>Home row and modifiers follow — a continuous gradient flows across the keycaps,
+          designed as one composition, not 104 separate stickers.</p>
+      </div>
+    </div>
+    <div class="journey-panel right reveal" data-phase="3">
+      <div class="glass-panel">
+        <p class="eyebrow">Layer 03 — The Finish</p>
+        <h3>Fully transformed.</h3>
+        <p>Bottom row, space bar accent, done. A keyboard that looks like it was custom-made —
+          for the price of a sticker set.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 4. PRODUCT COLLECTION ===================== -->
+  <section class="collection" id="collection" aria-label="Product collection">
+    <div class="section-head reveal">
+      <p class="eyebrow">The Collection</p>
+      <h2>Choose your design.</h2>
+      <p class="muted">Four signature sets. Every set includes a full-layout template, keycap stickers
+        and a space-bar accent.</p>
+    </div>
+    <div class="grid" id="productGrid"><!-- rendered by JS --></div>
+  </section>
+
+  <!-- ===================== 6. HOW IT WORKS ===================== -->
+  <section class="how" id="how" aria-label="How it works">
+    <div class="section-head reveal">
+      <p class="eyebrow">How It Works</p>
+      <h2>Five steps to a new keyboard.</h2>
+    </div>
+    <div class="how-grid" id="howGrid"><!-- rendered by JS --></div>
+  </section>
+
+  <!-- ===================== 7. FINAL HERO ===================== -->
+  <section class="final" id="final" aria-label="Shop Keyfank">
+    <div class="final-inner reveal">
+      <p class="eyebrow">The Result</p>
+      <h2>One scroll. <em>Whole new keyboard.</em></h2>
+      <p class="muted">The fully customized board you just built is waiting in the collection.</p>
+      <a class="btn primary xl" href="#collection">Shop Keyfank</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== 8. FOOTER ===================== -->
+<footer class="footer" aria-label="Footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="nav-logo">KEYFANK<span class="logo-dot">.</span></span>
+      <p class="muted">Keyboard personalization, made premium.</p>
+    </div>
+    <nav aria-label="Shop links"><h4>Shop</h4>
+      <a href="#collection">All Sets</a><a href="#collection">Featured</a><a href="#how">How It Works</a>
+    </nav>
+    <nav aria-label="Company links"><h4>Company</h4>
+      <a href="#idea">About</a>
+      <a href="#" data-demo-link>Contact</a><a href="#" data-demo-link>FAQ</a>
+    </nav>
+    <nav aria-label="Support links"><h4>Support</h4>
+      <a href="#" data-demo-link>Shipping</a><a href="#" data-demo-link>Returns</a>
+      <a href="#" data-demo-link>Privacy</a><a href="#" data-demo-link>Terms</a>
+    </nav>
+    <nav aria-label="Social links"><h4>Follow</h4>
+      <a href="#" data-demo-link>Instagram</a><a href="#" data-demo-link>TikTok</a><a href="#" data-demo-link>X</a>
+    </nav>
+  </div>
+  <p class="footer-note">© 2026 Keyfank. Demo storefront — no real orders are processed.</p>
+</footer>
+
+<!-- ===================== CART DRAWER ===================== -->
+<div class="overlay" id="overlay" hidden></div>
+<aside class="drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer-head">
+    <h3>Your Cart</h3>
+    <button class="icon-btn" id="cartClose" aria-label="Close cart">✕</button>
+  </div>
+  <div class="drawer-body" id="cartItems"><!-- rendered by JS --></div>
+  <div class="drawer-foot" id="cartFoot">
+    <div class="row"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+    <p class="muted small" id="shipNote">Free standard shipping on orders over $40.</p>
+    <button class="btn primary block" id="checkoutBtn">Checkout</button>
+  </div>
+</aside>
+
+<!-- ===================== PRODUCT DETAIL MODAL ===================== -->
+<div class="modal" id="productModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Product details">
+  <div class="modal-card product-modal">
+    <button class="icon-btn modal-close" data-close aria-label="Close product details">✕</button>
+    <div class="pm-preview">
+      <div class="mini-kb lg" id="pmKeyboard"><!-- rendered by JS --></div>
+      <p class="muted small center">Live preview — this design is applied to the 3D keyboard behind you.</p>
+    </div>
+    <div class="pm-info">
+      <p class="eyebrow" id="pmCategory">Set</p>
+      <h3 id="pmName">—</h3>
+      <p class="muted" id="pmDesc">—</p>
+      <div class="pm-price" id="pmPrice">$0.00</div>
+      <div class="pm-block">
+        <span class="pm-label">Variant</span>
+        <div class="variant-row" id="pmVariants"></div>
+      </div>
+      <div class="pm-block">
+        <span class="pm-label">Compatibility</span>
+        <div class="chips" id="pmCompat"></div>
+      </div>
+      <div class="pm-block">
+        <span class="pm-label">Details</span>
+        <ul class="tick-list" id="pmDetails"></ul>
+      </div>
+      <div class="pm-block stock" id="pmStock"></div>
+      <div class="qty-row">
+        <div class="qty" aria-label="Quantity selector">
+          <button id="qtyMinus" aria-label="Decrease quantity">−</button>
+          <span id="qtyVal" aria-live="polite">1</span>
+          <button id="qtyPlus" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="btn primary grow" id="pmAdd">Add to Cart — <span id="pmAddPrice"></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CHECKOUT MODAL ===================== -->
+<div class="modal" id="checkoutModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Checkout">
+  <div class="modal-card checkout-card">
+    <button class="icon-btn modal-close" data-close aria-label="Close checkout">✕</button>
+
+    <div id="checkoutFormWrap">
+      <h3>Checkout</h3>
+      <form id="checkoutForm" novalidate>
+        <div class="form-grid">
+          <label>Email<input type="email" name="email" required placeholder="you@email.com" autocomplete="email"></label>
+          <label>First name<input type="text" name="first" required autocomplete="given-name"></label>
+          <label>Last name<input type="text" name="last" required autocomplete="family-name"></label>
+          <label class="span2">Address<input type="text" name="address" required autocomplete="street-address"></label>
+          <label>City<input type="text" name="city" required autocomplete="address-level2"></label>
+          <label>ZIP / Postal<input type="text" name="zip" required autocomplete="postal-code"></label>
+          <label class="span2">Country
+            <select name="country" required>
+              <option value="">Select…</option><option>United States</option><option>United Kingdom</option>
+              <option>European Union</option><option>India</option><option>Japan</option><option>Other</option>
+            </select>
+          </label>
+        </div>
+
+        <h4>Shipping</h4>
+        <div class="ship-options">
+          <label class="ship-opt"><input type="radio" name="ship" value="standard" checked>
+            <span>Standard <em id="stdLabel">Free</em></span></label>
+          <label class="ship-opt"><input type="radio" name="ship" value="express">
+            <span>Express <em>$12.99</em></span></label>
+        </div>
+
+        <h4>Order Summary</h4>
+        <div class="summary" id="orderSummary"></div>
+
+        <!-- PAYMENT_INTEGRATION_POINT
+             A real payment provider (Stripe, PayPal, etc.) mounts here.
+             This demo validates the form and simulates order placement only. -->
+        <p class="muted small">Payment step — demo mode. A payment provider (Stripe / PayPal)
+          integrates at the marked point in <code>keyfank.js</code>. No card is charged.</p>
+
+        <button class="btn primary block" type="submit" id="placeOrderBtn">Place Order — <span id="orderTotal"></span></button>
+      </form>
+    </div>
+
+    <div id="orderSuccess" hidden>
+      <div class="success-mark">✓</div>
+      <h3>Order placed!</h3>
+      <p class="muted">Order <strong id="orderId"></strong> — this is a demo storefront, so no
+        payment was processed and nothing will ship. The checkout flow, cart, and summary are
+        fully functional front-end architecture ready for a payment provider.</p>
+      <button class="btn ghost" data-close>Continue Browsing</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><p style="text-align:center;padding:2rem">Keyfank needs JavaScript for the 3D experience and store.</p></noscript>
+<script type="module" src="keyfank.js"></script>
+</body>
+</html>
